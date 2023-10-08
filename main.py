@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import filedialog
 import json
 import datetime
 
@@ -66,7 +67,6 @@ def carregar_tarefas():
         return []
 
 # Função para filtrar tarefas
-
 def filtrar_tarefas():
     filtro_data = entrada_filtro_data.get()
     filtro_prioridade = var_filtro_prioridade.get()
@@ -78,6 +78,21 @@ def filtrar_tarefas():
     for tarefa in tarefas_filtradas:
         dados = f"Tarefa: {tarefa['tarefa']} - Data: {tarefa['data_vencimento']} - Prioridade: {tarefa['prioridade']}"
         lista_tarefas.insert("end", dados)
+
+# Função para exportar as tarefas para um arquivo Json
+def exportar_tarefas():
+    arquivo_destino = filedialog.asksaveasfilename(defaultextension='.json', filetypes=[("Arquivos JSON", "*.json")])
+    if arquivo_destino:
+        with open(arquivo_destino, 'w') as arquivo:
+            json.dump(tarefas, arquivo)
+
+# Função para importar as tarefas de um arquivo Json
+def importar_tarefas():
+    arquivo_origem = filedialog.askopenfilename(filetypes=[("Arquivos JSON", "*.json")])
+    if arquivo_origem:
+        with open(arquivo_origem, 'r') as arquivo:
+            tarefas.extend(json.load(arquivo))
+        atualizar_lista()
 
 # Criar a janela principal
 janela = tk.Tk()
@@ -142,6 +157,14 @@ menu_filtro_prioridade.pack()
 # Criar botão para aplicar filtros
 botao_filtrar = tk.Button(janela, text="Filtrar Tarefas", command=filtrar_tarefas, bg='#fb8792')
 botao_filtrar.pack()
+
+# Criar botão para exportar tarefas
+botao_exportar = tk.Button(janela, text='Salvar', command=exportar_tarefas, bg='#fb8792')
+botao_exportar.pack()
+
+# Criar botão para importar tarefas
+botao_importar = tk.Button(janela, text='Carregar',command=importar_tarefas, bg='#fb8792')
+botao_importar.pack()
 
 # Atualizar a lista de tarefas na inicialização
 tarefas = carregar_tarefas()
