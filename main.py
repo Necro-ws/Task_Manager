@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkFont
 import json
 import datetime
 
@@ -81,60 +82,65 @@ def filtrar_tarefas():
 # Criar a janela principal
 janela = tk.Tk()
 janela.title("Gerenciador de Tarefas")
-janela.configure(background='#78bbf5')
+janela.configure(background='#fbcbbc')
+fonte = tkFont.Font(family='Comic Sans MS', size= 11, weight='bold', slant='italic')
+janela.option_add('*font', fonte)
+janela.option_add('*foreground', 'white')
 
 # Variável para a prioridade
 var_prioridade = tk.StringVar()
 var_prioridade.set("Prioridade")
 
 # Criar uma entrada de texto
-entrada_tarefa = tk.Entry(janela, width=30)
+entrada_tarefa = tk.Entry(janela, width=30, bg= "#fb8792")
 entrada_tarefa.insert(0, "Tarefa")
 entrada_tarefa.pack(pady=10)
 
 # Criar uma entrada para data de vencimento
-entrada_data = tk.Entry(janela, width=30)
+entrada_data = tk.Entry(janela, width=30, bg= "#fb8792")
 entrada_data.insert(0, "Data")
 entrada_data.pack()
 
 # Criar um menu suspenso para a prioridade
 menu_prioridade = tk.OptionMenu(janela, var_prioridade, "Baixa", "Média", "Alta")
+menu_prioridade.configure(bg= '#fb8792', activebackground= '#fb8792', activeforeground= 'white', highlightbackground= '#fb8792')
 menu_prioridade.pack()
 
 # Criar um botão para adicionar tarefa
-botao_adicionar = tk.Button(janela, text="Adicionar Tarefa", command=adicionar_tarefa, bg='#ffffff')
+botao_adicionar = tk.Button(janela, text="Adicionar Tarefa", command=adicionar_tarefa, bg='#fb8792')
 botao_adicionar.pack()
 
 # mostrar a data atual
 data_atual = datetime.datetime.now().strftime("%d-%m-%Y")
-data_atualwin = tk.Message(janela, width=60, text=f'Data atual: {data_atual}')
+data_atualwin = tk.Message(janela, width=120, text=f'Data atual: {data_atual}', bg= "#fb8792")
 data_atualwin.pack()
 
 # Criar uma lista de tarefas
-lista_tarefas = tk.Listbox(janela, width=70, bg='#ffffff')
+lista_tarefas = tk.Listbox(janela, width=70, bg='#fb8792')
 lista_tarefas.pack(pady=10)
 
 # Criar um botão para editar tarefa
-botao_editar = tk.Button(janela, text="Editar Tarefa", command=editar_tarefa, bg='#ffffff')
+botao_editar = tk.Button(janela, text="Editar Tarefa", command=editar_tarefa, bg='#fb8792')
 botao_editar.pack()
 
 # Criar um botão para excluir tarefa
-botao_excluir = tk.Button(janela, text="Excluir Tarefa", command=excluir_tarefa, bg='#ffffff')
+botao_excluir = tk.Button(janela, text="Excluir Tarefa", command=excluir_tarefa, bg='#fb8792')
 botao_excluir.pack()
 
 # Criar entrada de filtro para data
-entrada_filtro_data = tk.Entry(janela, width=30)
-entrada_filtro_data.insert(0, "Filtrar por Data")
+entrada_filtro_data = tk.Entry(janela, width=36, bg= "#fb8792")
+entrada_filtro_data.insert(0, "Filtrar por Data(apague caso não usar data)")
 entrada_filtro_data.pack()
 
 # Criar menu suspenso para filtro de prioridade
 var_filtro_prioridade = tk.StringVar()
 var_filtro_prioridade.set("Filtrar por Prioridade")
 menu_filtro_prioridade = tk.OptionMenu(janela, var_filtro_prioridade, "", "Baixa", "Média", "Alta")
+menu_filtro_prioridade.configure(bg= '#fb8792', activebackground= '#fb8792', activeforeground= 'white', highlightbackground= '#fb8792')
 menu_filtro_prioridade.pack()
 
 # Criar botão para aplicar filtros
-botao_filtrar = tk.Button(janela, text="Filtrar Tarefas", command=filtrar_tarefas, bg='#ffffff')
+botao_filtrar = tk.Button(janela, text="Filtrar Tarefas", command=filtrar_tarefas, bg='#fb8792')
 botao_filtrar.pack()
 
 # Atualizar a lista de tarefas na inicialização
