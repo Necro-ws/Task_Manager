@@ -34,19 +34,7 @@ def editar_tarefa():
         var_prioridade.set(tarefa['prioridade'])
         excluir_tarefa()
         salvar_tarefas()
-
-# função para copiar tarefas selecionadas
-
-def copiar_tarefa():
-    lista_up = []
-    selecao = lista_tarefas.curselection()
-    if selecao:
-        index = selecao[0]
-        tarefa = tarefas[index]
-        lista_up.append(tarefa)
-        print(lista_up[0])
-        
-
+      
 # Função para atualizar a lista de tarefas na tela
 def atualizar_lista():
     lista_tarefas.delete(0, "end")
@@ -75,6 +63,20 @@ def carregar_tarefas():
             return json.load(arquivo)
     except FileNotFoundError:
         return []
+
+# Função para filtrar tarefas
+
+def filtrar_tarefas():
+    filtro_data = entrada_filtro_data.get()
+    filtro_prioridade = var_filtro_prioridade.get()
+    tarefas_filtradas = [tarefa for tarefa in tarefas if
+                         (not filtro_data or tarefa['data_vencimento'] == filtro_data) and
+                         (not filtro_prioridade or tarefa['prioridade'] == filtro_prioridade)]
+    
+    lista_tarefas.delete(0, "end")
+    for tarefa in tarefas_filtradas:
+        dados = f"Tarefa: {tarefa['tarefa']} - Data: {tarefa['data_vencimento']} - Prioridade: {tarefa['prioridade']}"
+        lista_tarefas.insert("end", dados)
 
 # Criar a janela principal
 janela = tk.Tk()
@@ -120,9 +122,20 @@ botao_editar.pack()
 botao_excluir = tk.Button(janela, text="Excluir Tarefa", command=excluir_tarefa, bg='#ffffff')
 botao_excluir.pack()
 
-# Botao para salvar no google
-botao_salvar = tk.Button(janela, text="Salvar", command=copiar_tarefa)
-botao_salvar.pack()
+# Criar entrada de filtro para data
+entrada_filtro_data = tk.Entry(janela, width=30)
+entrada_filtro_data.insert(0, "Filtrar por Data")
+entrada_filtro_data.pack()
+
+# Criar menu suspenso para filtro de prioridade
+var_filtro_prioridade = tk.StringVar()
+var_filtro_prioridade.set("Filtrar por Prioridade")
+menu_filtro_prioridade = tk.OptionMenu(janela, var_filtro_prioridade, "", "Baixa", "Média", "Alta")
+menu_filtro_prioridade.pack()
+
+# Criar botão para aplicar filtros
+botao_filtrar = tk.Button(janela, text="Filtrar Tarefas", command=filtrar_tarefas, bg='#ffffff')
+botao_filtrar.pack()
 
 # Atualizar a lista de tarefas na inicialização
 tarefas = carregar_tarefas()
