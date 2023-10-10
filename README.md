@@ -74,13 +74,13 @@ O Sistema de Gerenciamento de Tarefas oferece a opção de exportar seus dados p
 
 -Para exportar dados:
 
-Clique em "Exportar Dados".
+Clique em "Salvar".
 
 Escolha o local e nome do arquivo JSON onde os dados serão salvos.
 
 -Para importar dados:
 
-Clique em "Importar Dados".
+Clique em "Carregar".
 
 Selecione o arquivo JSON com os dados a serem importados.
 
