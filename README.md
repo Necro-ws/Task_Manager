@@ -46,6 +46,13 @@ Você também pode definir a prioridade da tarefa e adicionar categorias para um
 
 Clique em "Salvar" para adicionar a tarefa à lista.
 
+-Concluir Tarefa
+Para concluir uma tarefa, siga estas etapas:
+
+Selecione a tarefa que deseja marcar como concluida na lista.
+
+Clique no botão "Concluir Tarefa".
+
 -Editar Tarefa
 Para editar uma tarefa existente, siga estas etapas:
 
