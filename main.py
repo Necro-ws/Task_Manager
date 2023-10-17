@@ -14,7 +14,8 @@ def adicionar_tarefa():
         nova_tarefa = {
             'tarefa': tarefa,
             'prioridade': prioridade,
-            'data_vencimento': data_vencimento
+            'data_vencimento': data_vencimento,
+            'concluida': False
         }
         tarefas.append(nova_tarefa)
         atualizar_lista()
@@ -42,6 +43,8 @@ def atualizar_lista():
     lista_tarefas.delete(0, "end")
     for tarefa in tarefas:
         dados = f"Tarefa: {tarefa['tarefa']} - Data: {tarefa['data_vencimento']} - Prioridade: {tarefa['prioridade']}"
+        if tarefa['concluida']:
+            dados = f'[Concluída] {dados}'
         lista_tarefas.insert("end", dados)
 
 # Função para excluir a tarefa selecionada
@@ -50,6 +53,16 @@ def excluir_tarefa():
     if selecao:
         index = selecao[0]
         tarefas.pop(index)
+        atualizar_lista()
+        salvar_tarefas()
+
+# Função para Concluir a tarefa selecionada
+def concluir_tarefa():
+    selecao = lista_tarefas.curselection()
+    if selecao:
+        index = selecao[0]
+        tarefa = tarefas[index]
+        tarefa['concluida'] = True
         atualizar_lista()
         salvar_tarefas()
 
@@ -146,6 +159,11 @@ lista_tarefas.place(x=134, y= 350)
 botao_editar = tk.Button(janela, text="Editar Tarefa", command=editar_tarefa, bg='#ece7dc', activebackground='#ece7dc')
 botao_editar.pack(pady=5)
 botao_editar.place(x=150, y=90)
+
+# Criar um botão para concluir uma tarefa
+botao_concluir = tk.Button(janela, text='Concluir Tarefa', command=concluir_tarefa, bg='#ece7dc', activebackground='#ece7dc')
+botao_concluir.pack()
+botao_concluir.place(x=145, y=190)
 
 # Criar um botão para excluir tarefa
 botao_excluir = tk.Button(janela, text="Excluir Tarefa", command=excluir_tarefa, bg='#ece7dc', activebackground='#ece7dc')
