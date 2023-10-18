@@ -9,18 +9,21 @@ def adicionar_tarefa():
     tarefa = entrada_tarefa.get()
     prioridade = var_prioridade.get()
     data_vencimento = entrada_data.get()
+    hora_vencimento = entrada_hora.get()
     
     if tarefa:
         nova_tarefa = {
             'tarefa': tarefa,
             'prioridade': prioridade,
             'data_vencimento': data_vencimento,
+            'hora_vencimento': hora_vencimento,
             'concluida': False
         }
         tarefas.append(nova_tarefa)
         atualizar_lista()
         entrada_tarefa.delete(0, "end")
         entrada_data.delete(0, "end")
+        entrada_hora.delete(0, "end")
         var_prioridade.set("Baixa")
         salvar_tarefas()
 
@@ -42,7 +45,7 @@ def editar_tarefa():
 def atualizar_lista():
     lista_tarefas.delete(0, "end")
     for tarefa in tarefas:
-        dados = f"Tarefa: {tarefa['tarefa']} - Data: {tarefa['data_vencimento']} - Prioridade: {tarefa['prioridade']}"
+        dados = f"Tarefa: {tarefa['tarefa']} - Data: {tarefa['data_vencimento']} - Hora: {tarefa['hora_vencimento']} - Prioridade: {tarefa['prioridade']}"
         if tarefa['concluida']:
             dados = f'[Concluída] {dados}'
         lista_tarefas.insert("end", dados)
@@ -133,16 +136,22 @@ entrada_data.insert(0, "Data")
 entrada_data.pack()
 entrada_data.place(x=313, y= 50)
 
+# Criar um entrada para a hora do vencimento
+entrada_hora = tk.Entry(janela, width=30, bg="#edebe6", selectbackground='#cccabc', selectforeground='#444444')
+entrada_hora.insert(0, 'Horario')
+entrada_hora.pack()
+entrada_hora.place(x=313, y=90)
+
 # Criar um menu suspenso para a prioridade
 menu_prioridade = tk.OptionMenu(janela, var_prioridade, "Baixa", "Média", "Alta")
 menu_prioridade.configure(bg= '#ece7dc', activebackground= '#ece7dc', activeforeground= '#000000', highlightbackground= '#d7cfc1')
 menu_prioridade.pack(pady=5)
-menu_prioridade.place(x=390, y=90)
+menu_prioridade.place(x=390, y=140)
 
 # Criar um botão para adicionar tarefa
 botao_adicionar = tk.Button(janela, text="Adicionar Tarefa", command=adicionar_tarefa, bg='#ece7dc', activebackground='#ece7dc')
 botao_adicionar.pack()
-botao_adicionar.place(x=380, y=140)
+botao_adicionar.place(x=380, y=190)
 
 # mostrar a data atual
 data_atual = datetime.datetime.now().strftime("%d-%m-%Y")
