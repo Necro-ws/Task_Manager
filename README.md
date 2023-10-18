@@ -40,7 +40,7 @@ Para adicionar uma nova tarefa, siga estas etapas:
 
 Clique no botão "Adicionar Tarefa".
 
-Preencha os campos obrigatórios, como o nome da tarefa e a data de vencimento.
+Preencha os campos obrigatórios, como o nome da tarefa, data de vencimento e a hora.
 
 Você também pode definir a prioridade da tarefa e adicionar categorias para uma melhor organização.
 
