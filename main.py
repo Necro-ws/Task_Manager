@@ -3,6 +3,7 @@ import tkinter.font as tkFont
 from tkinter import filedialog
 import json
 import datetime
+import time
 
 # Função para adicionar uma nova tarefa
 def adicionar_tarefa():
@@ -17,7 +18,8 @@ def adicionar_tarefa():
             'prioridade': prioridade,
             'data_vencimento': data_vencimento,
             'hora_vencimento': hora_vencimento,
-            'concluida': False
+            'concluida': False,
+            'notificada': False
         }
         tarefas.append(nova_tarefa)
         atualizar_lista()
@@ -94,6 +96,42 @@ def filtrar_tarefas():
     for tarefa in tarefas_filtradas:
         dados = f"Tarefa: {tarefa['tarefa']} - Data: {tarefa['data_vencimento']} - Prioridade: {tarefa['prioridade']}"
         lista_tarefas.insert("end", dados)
+
+# Função para verificar as proximas tarefas
+def verificar_proximas_tarefas():
+    tempo_limite_notificao = 5 * 60 
+    # padrão de 5 minutos ^^^^^^^^^^
+    agora = time.time()
+    for tarefa in tarefas:
+        if tarefa['notificada'] == False:
+            data_hora_tarefa = datetime.datetime.strptime(f"{tarefa['data_vencimento']} {tarefa['hora_vencimento']}", "%d/%m/%Y %H:%M").timestamp()
+            if data_hora_tarefa > agora and data_hora_tarefa <= (agora + tempo_limite_notificao):
+                mostrar_notificacao(tarefa)
+               
+    janela.after(60 * 250, verificar_proximas_tarefas)
+    # verifica as tarefas a cada 1 minuto ^^^^^^^^^
+
+# Função para criar janela da notificação
+def mostrar_notificacao(tarefa):
+    notificacao = tk.Toplevel(janela)
+    notificacao.title("Notificação de Tarefa")
+    notificacao.geometry('400x150')
+    notificacao.resizable(False, False)
+    
+    mensagem = f"A tarefa '{tarefa['tarefa']}' está prestes a começar."
+    label = tk.Label(notificacao, text=mensagem, font=fonte)
+    label.pack(padx=10, pady=10)
+
+    # Função para não notificar novamente
+    def nao_notificar_novamente():
+        tarefa['notificada'] = True
+        salvar_tarefas()
+    
+    botao_notificacao = tk.Button(notificacao, text='Não nofificar novamente', command=nao_notificar_novamente)
+    botao_notificacao.pack(pady=10)
+
+    botao_fechar = tk.Button(notificacao, text="Fechar", command=notificacao.destroy)
+    botao_fechar.pack() 
 
 # Função para exportar as tarefas para um arquivo Json
 def exportar_tarefas():
@@ -211,6 +249,9 @@ botao_importar.place(x=672, y=140)
 # Atualizar a lista de tarefas na inicialização
 tarefas = carregar_tarefas()
 atualizar_lista()
+
+# Verifica o tempo das tarefas a cada 1 minuto
+verificar_proximas_tarefas()
 
 # Iniciar a interface gráfica
 janela.mainloop()
