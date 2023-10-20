@@ -76,6 +76,15 @@ Confirme a exclusão quando solicitado.
 -Filtrar Tarefas
 Você pode filtrar as tarefas com base na data de vencimento e na prioridade usando as opções de filtro na parte superior da tela.
 
+- Notificação de quando a tarefa esta prestes a começar.
+O Sistema contem uma opção padrão de quando uma tarefa for criada quando ela estiver a 5 minutos de ser iniciada ele soltara uma notificação para avisar sobre o inicio da tarefa.
+
+Caso abra o Sistema e esteja dentro do horario dos 5 minutos ele soltara uma notificação imediatamente quando aberto.
+
+O Sistema ficara soltando esta notificação de 1 em 1 minuto caso não a desative na janela de notificação ou ate o tempo da tarefa passar.
+
+SERA IMPLEMENTADO UMA FUNÇÃO EM QUE O TEMPO DA NOTIFICAÇÃO SERA ESCOLHIDA PELO USUARIO
+
 - Exportar e Importar Dados
 O Sistema de Gerenciamento de Tarefas oferece a opção de exportar seus dados para um arquivo JSON e importar dados de um arquivo JSON existente. Isso pode ser útil para fazer backup ou migrar para outro sistema.
 
