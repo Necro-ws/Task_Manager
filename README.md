@@ -79,6 +79,8 @@ Você pode filtrar as tarefas com base na data de vencimento e na prioridade usa
 - Notificação de quando a tarefa esta prestes a começar.
 O Sistema contem uma opção padrão de quando uma tarefa for criada quando ela estiver a 5 minutos de ser iniciada ele soltara uma notificação para avisar sobre o inicio da tarefa.
 
+Você pode alterar o tempo padrão das notificações na opção, o padrão como dito acima é 5 minutos, porem pode colocar quanto tempo quiser para ser notificado antes.
+
 Caso abra o Sistema e esteja dentro do horario dos 5 minutos ele soltara uma notificação imediatamente quando aberto.
 
 O Sistema ficara soltando esta notificação de 1 em 1 minuto caso não a desative na janela de notificação ou ate o tempo da tarefa passar.
