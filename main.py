@@ -99,7 +99,13 @@ def filtrar_tarefas():
 
 # Função para verificar as proximas tarefas
 def verificar_proximas_tarefas():
-    tempo_limite_notificao = 5 * 60 
+    tempo_notificacao = entrada_notificacao_padrao.get()
+
+    if not tempo_notificacao:
+        tempo_notificacao = 5
+
+    tempo_notificacao = int(tempo_notificacao)
+    tempo_limite_notificao = tempo_notificacao * 60 
     # padrão de 5 minutos ^^^^^^^^^^
     agora = time.time()
     for tarefa in tarefas:
@@ -174,11 +180,20 @@ entrada_data.insert(0, "Data")
 entrada_data.pack()
 entrada_data.place(x=313, y= 50)
 
-# Criar um entrada para a hora do vencimento
+# Criar uma entrada para a hora do vencimento
 entrada_hora = tk.Entry(janela, width=30, bg="#edebe6", selectbackground='#cccabc', selectforeground='#444444')
 entrada_hora.insert(0, 'Horario')
 entrada_hora.pack()
 entrada_hora.place(x=313, y=90)
+
+# Criar uma entrada para o tempo de notifição padrão
+entrada_notificacao_padrao = tk.Entry(janela, width=5, bg="#edebe6", selectbackground='#cccabc', selectforeground='#444444')
+entrada_notificacao_padrao.insert(0, 5)
+entrada_notificacao_padrao.pack()
+entrada_notificacao_padrao.place(x=52, y=65)
+mensagem_notificacao = tk.Message(janela,width=120, text='Tempo para  Notificação', bg='#e7d4b6')
+mensagem_notificacao.pack()
+mensagem_notificacao.place(x=30, y=10)
 
 # Criar um menu suspenso para a prioridade
 menu_prioridade = tk.OptionMenu(janela, var_prioridade, "Baixa", "Média", "Alta")
