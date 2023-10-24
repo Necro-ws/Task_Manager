@@ -122,10 +122,11 @@ def mostrar_notificacao(tarefa):
     notificacao = tk.Toplevel(janela)
     notificacao.title("Notificação de Tarefa")
     notificacao.geometry('400x150')
+    notificacao.configure(background='#e7d4b6')
     notificacao.resizable(False, False)
     
     mensagem = f"A tarefa '{tarefa['tarefa']}' está prestes a começar."
-    label = tk.Label(notificacao, text=mensagem, font=fonte)
+    label = tk.Label(notificacao, text=mensagem, font=fonte, background='#e7d4b6')
     label.pack(padx=10, pady=10)
 
     # Função para não notificar novamente
@@ -133,10 +134,10 @@ def mostrar_notificacao(tarefa):
         tarefa['notificada'] = True
         salvar_tarefas()
     
-    botao_notificacao = tk.Button(notificacao, text='Não nofificar novamente', command=nao_notificar_novamente)
+    botao_notificacao = tk.Button(notificacao, text='Não nofificar novamente', command=nao_notificar_novamente, bg='#ece7dc', activebackground='#ece7dc')
     botao_notificacao.pack(pady=10)
 
-    botao_fechar = tk.Button(notificacao, text="Fechar", command=notificacao.destroy)
+    botao_fechar = tk.Button(notificacao, text="Fechar", command=notificacao.destroy, bg='#ece7dc', activebackground='#ece7dc')
     botao_fechar.pack() 
 
 # Função para exportar as tarefas para um arquivo Json
